@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  database:
+    image: mongo:6.0.2
+    container_name: robinhood-database
+    ports:
+      - 27017:27017
+    env_file: .env.example
+    volumes:
+      - ./database/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
+      - ./resources/db:/data/db
+
+  backend:
+    container_name: robinhood-backend
+    ports:
+      - 2000:2000
+    build:
+      context: ./backend
+      dockerfile: dev.Dockerfile
+    env_file: .env.example
+    environment:
+      - PORT=2000
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - database
