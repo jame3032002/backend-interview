@@ -16,6 +16,7 @@ app.use(bodyParser.json({ type: "application/json" }));
 
 app.use("/api/users", require("./routes/users"));
 app.use("/api/interviews", require("./routes/interviews"));
+app.use("/api/comments", require("./routes/comments"));
 
 app.listen(PORT, () => {
   console.log(`Running on port: ${PORT}`);

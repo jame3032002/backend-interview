@@ -26,7 +26,19 @@ async function addComment({ interviewId, userId, comment }) {
   return c;
 }
 
+async function deleteCommentById({ commentId }) {
+  await Comment.deleteOne({ _id: commentId });
+}
+
+async function getCommentById({ commentId }) {
+  const comment = await Comment.findOne({ _id: commentId });
+
+  return comment;
+}
+
 module.exports = {
   addComment,
+  getCommentById,
+  deleteCommentById,
   getCommentsByInterviewId,
 };
