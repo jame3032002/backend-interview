@@ -36,9 +36,20 @@ async function getCommentById({ commentId }) {
   return comment;
 }
 
+async function updateCommentById({ commentId, comment }) {
+  const latestComment = await Comment.findOneAndUpdate(
+    { _id: commentId },
+    { $set: { comment } },
+    { returnDocument: "after" }
+  );
+
+  return latestComment;
+}
+
 module.exports = {
   addComment,
   getCommentById,
   deleteCommentById,
+  updateCommentById,
   getCommentsByInterviewId,
 };
