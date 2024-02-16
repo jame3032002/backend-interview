@@ -43,6 +43,9 @@ const InterviewSchema = new Schema(
             enum: STATUS,
             require: true,
           },
+          createdAt: {
+            type: Date,
+          },
         },
       ],
     },
