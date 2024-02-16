@@ -110,10 +110,67 @@ async function archiveInterview({ interviewId, isArchive }) {
   return interview;
 }
 
+async function getInterviewsPaginationBySkipLimit({ page = 1, limit }) {
+  const start = (page - 1) * limit;
+
+  const interviews = await Interview.aggregate([
+    { $match: { isArchive: false } },
+    {
+      $lookup: {
+        from: "users",
+        localField: "createdBy",
+        foreignField: "_id",
+        as: "user",
+      },
+    },
+    {
+      $unwind: "$user",
+    },
+    {
+      $project: {
+        _id: 1,
+        title: 1,
+        description: 1,
+        status: 1,
+        createdBy: 1,
+        name: "$user.name",
+        isArchive: 1,
+        edited: 1,
+        createdAt: 1,
+        updatedAt: 1,
+      },
+    },
+    {
+      $facet: {
+        data: [{ $skip: start }, { $limit: limit }],
+        info: [
+          { $count: "totalResults" },
+          {
+            $set: {
+              isNextPage: {
+                $cond: {
+                  if: { $gt: ["$totalResults", page * limit] },
+                  then: true,
+                  else: false,
+                },
+              },
+              currentPage: page,
+              limit,
+            },
+          },
+        ],
+      },
+    },
+  ]);
+
+  return interviews;
+}
+
 module.exports = {
   addInterview,
   getInterviews,
   editInterview,
   getInterviewById,
   archiveInterview,
+  getInterviewsPaginationBySkipLimit,
 };
