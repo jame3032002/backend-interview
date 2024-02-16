@@ -93,7 +93,10 @@ async function editInterview({ interviewId, data, previousData }) {
   const { title, description, status } = previousData;
   const interview = await Interview.findOneAndUpdate(
     { _id: interviewId, isArchive: false },
-    { $set: data, $push: { edited: { title, description, status } } },
+    {
+      $set: data,
+      $push: { edited: { title, description, status, createdAt: Date.now() } },
+    },
     { runValidators: true, returnDocument: "after" }
   );
 
@@ -166,6 +169,14 @@ async function getInterviewsPaginationBySkipLimit({ page = 1, limit }) {
   return interviews;
 }
 
+async function getHistoriesByInterviewId({ interviewId }) {
+  const histories = await Interview.findOne(
+    { _id: interviewId },
+    { edited: 1 }
+  );
+  return histories;
+}
+
 module.exports = {
   addInterview,
   getInterviews,
@@ -173,4 +184,5 @@ module.exports = {
   getInterviewById,
   archiveInterview,
   getInterviewsPaginationBySkipLimit,
+  getHistoriesByInterviewId,
 };
