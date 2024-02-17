@@ -1059,3 +1059,64 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 ```
 
 </detials>
+
+<details>
+  <summary>Delete comment - ลบความคิดเห็นใน interview</summary>
+
+## Delete comment
+
+เป็น Route สำหรับลบความคิดเห็นของ user นั้นๆ
+
+**URL** : `/api/comments/:commentId`
+
+**Method** : `DELETE`
+
+**Auth required** : YES
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content** :
+
+```json
+{
+  "success": true
+}
+```
+
+## Error Response
+
+### Invalid commentId
+
+**Condition** : ถ้าหาก `commentId` ไม่มีใน database
+
+**Code** : `400 BAD REQUEST`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Invalid commentId"
+}
+```
+
+<hr />
+
+### Forbidden
+
+**Condition** : ถ้าหากเราไม่ได้เป็นคนสร้างความคิดเห็นนั้น แล้วไปแก้ไขความคิดเห็น
+
+**Code** : `403 FORBIDDEN`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "You don't have permission"
+}
+```
+
+</detials>
