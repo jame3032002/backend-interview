@@ -259,6 +259,40 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 
 > หากใน doc ระบุว่า **Auth required** : **YES** จะต้องแนบ header `Authorization` มาด้วยเสมอ จึงจะใช้งาน route นั้นๆ ได้
 
+### Error Response
+
+#### Unauthorized
+
+**Condition** : ถ้าหากไม่ได้แนบ Header `Authorization` มาด้วย
+
+**Code** : `401 Unauthorized`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Access token is required"
+}
+```
+
+<hr />
+
+### Forbidden
+
+**Condition** : ถ้าหาก Header `Authorization` ที่ส่งมาไม่ถูกต้อง
+
+**Code** : `403 Forbidden`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Invalid access token"
+}
+```
+
 ### Interviews
 
 <details>
@@ -358,38 +392,149 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 
 > จากรูป UX/UI ก่อนหน้า ถ้าหากกดปุ่ม `See more` ให้เรียก API route เดิมนี้โดยจะต้องระบุ page ส่งมาด้วย เพื่อโหลด List ของ Interviews เพิ่มเติม เช่น http://localhost:2000/api/interviews?page=2
 
-## Error Response
+</details>
 
-### Unauthorized
+<details>
+  <summary>Get Interview By Id - ดึงข้อมูล Interviews ด้วย id</summary>
 
-**Condition** : ถ้าหากไม่ได้แนบ Header `Authorization` มาด้วย
+## Get Interview By Id
 
-**Code** : `401 Unauthorized`
+เป็น Route สำหรับดึงข้อมูล Interview ด้วย Id ใช้สำหรับดึงข้อมูลเพื่อดูข้อมูล Interview หรือดึงข้อมูลเพื่อจะแก้ไขข้อมูลของ Interview ใช้กับ UX/UI ในส่วนการคลิกที่ Card เพื่อดู detail ดังรูปด้านล่างนี้
 
-**Content** :
+![UX/UI เมื่อกดที่ Card เพื่อดู detail](https://github.com/jame3032002/backend-interview/assets/8217160/571cc064-9d04-41f7-96cf-d68ea166128d)
+
+**URL** : `/api/interviews/:interviewId`
+
+**Method** : `GET`
+
+> สามารถระบุ query เพิ่มเติมได้ คือ `include=comments`
+> ถ้าหากระบุจะมี comments แสดงขึ้นมาด้วย
+
+**Auth required** : YES
+
+## Success Response (?include=comments)
+
+**Code** : `200 OK`
+
+**Content example**
 
 ```json
 {
-  "error": true,
-  "message": "Access token is required"
+  "success": true,
+  "interview": {
+    "_id": "65d061949166d015d47dee80",
+    "title": "นัดสัมภาษณ์งาน 1",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorpera. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+    "status": "To Do",
+    "createdBy": "65cfa17ad00dcd13b311fc47",
+    "isArchive": false,
+    "edited": [
+      {
+        "title": "นัดสัมภาษณ์งาน 1-1",
+        "description": "1-1-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorpera. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+        "status": "To Do",
+        "createdAt": "2023-01-01T03:10:00.696Z",
+        "_id": "65d067709e8c3fb440e39d2c"
+      },
+      {
+        "title": "นัดสัมภาษณ์งาน 1-2",
+        "description": "1-2-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorper a. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+        "status": "Done",
+        "createdAt": "2023-01-01T03:12:00.696Z",
+        "_id": "65d0677a9e8c3fb440e39d30"
+      },
+      {
+        "title": "นัดสัมภาษณ์งาน 1-3",
+        "description": "1-3-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorper a. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+        "status": "Done",
+        "createdAt": "2023-01-01T03:20:00.696Z",
+        "_id": "65d0677f9e8c3fb440e39d35"
+      }
+    ],
+    "createdAt": "2023-01-01T03:00:00.696Z",
+    "updatedAt": "2023-01-01T04:00:00.696Z",
+    "name": "โรบินฮู้ด",
+    "email": "user1@robinhood.co.th"
+  },
+  "comments": [
+    {
+      "_id": "65d062a99166d015d47dee8f",
+      "interviewId": "65d061949166d015d47dee80",
+      "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "createdBy": "65cfa186d00dcd13b311fc4a",
+      "createdAt": "2024-02-17T07:39:21.161Z",
+      "name": "แบทแมน",
+      "email": "user2@robinhood.co.th"
+    },
+    {
+      "_id": "65d062a19166d015d47dee8c",
+      "interviewId": "65d061949166d015d47dee80",
+      "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "createdBy": "65cfa19ad00dcd13b311fc4d",
+      "createdAt": "2024-02-17T07:39:13.363Z",
+      "name": "แคทวูแมน",
+      "email": "user3@robinhood.co.th"
+    },
+    {
+      "_id": "65d062469166d015d47dee88",
+      "interviewId": "65d061949166d015d47dee80",
+      "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "createdBy": "65cfa186d00dcd13b311fc4a",
+      "createdAt": "2024-02-17T07:37:42.492Z",
+      "name": "แบทแมน",
+      "email": "user2@robinhood.co.th"
+    }
+  ]
 }
 ```
 
-<hr />
+## Success Response (กรณีไม่ได้ระบุ query เพิ่มเติม)
 
-### Forbidden
+**Code** : `200 OK`
 
-**Condition** : ถ้าหาก Header `Authorization` ที่ส่งมาไม่ถูกต้อง
-
-**Code** : `403 Forbidden`
-
-**Content** :
+**Content example**
 
 ```json
 {
-  "error": true,
-  "message": "Invalid access token"
+  "success": true,
+  "interview": {
+    "_id": "65d061949166d015d47dee80",
+    "title": "นัดสัมภาษณ์งาน 1",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorpera. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+    "status": "To Do",
+    "createdBy": "65cfa17ad00dcd13b311fc47",
+    "isArchive": false,
+    "edited": [
+      {
+        "title": "นัดสัมภาษณ์งาน 1-1",
+        "description": "1-1-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorpera. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+        "status": "To Do",
+        "createdAt": "2023-01-01T03:10:00.696Z",
+        "_id": "65d067709e8c3fb440e39d2c"
+      },
+      {
+        "title": "นัดสัมภาษณ์งาน 1-2",
+        "description": "1-2-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorper a. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+        "status": "Done",
+        "createdAt": "2023-01-01T03:12:00.696Z",
+        "_id": "65d0677a9e8c3fb440e39d30"
+      },
+      {
+        "title": "นัดสัมภาษณ์งาน 1-3",
+        "description": "1-3-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorper a. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+        "status": "Done",
+        "createdAt": "2023-01-01T03:20:00.696Z",
+        "_id": "65d0677f9e8c3fb440e39d35"
+      }
+    ],
+    "createdAt": "2023-01-01T03:00:00.696Z",
+    "updatedAt": "2023-01-01T04:00:00.696Z",
+    "name": "โรบินฮู้ด",
+    "email": "user1@robinhood.co.th"
+  }
 }
 ```
+
+> **เพิ่มเติม** ในการ GET interview by id จะมีข้อมูล Edited ติดมาด้วย ซึ่งจะเอาไปใช้กับส่วนที่กดดูประวัติการแก้ไข
 
 </details>
