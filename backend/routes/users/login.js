@@ -3,6 +3,7 @@ const {
   UNAUTHORIZED_STATUS,
   INTERNAL_SERVER_ERROR,
 } = require("../../config/statusMessage");
+const { isValidEmail } = require("../../helpers");
 const { generateAccessToken } = require("../../helpers/auth");
 const { findUserByEmail } = require("../../services/user.service");
 
@@ -18,11 +19,19 @@ module.exports = async (req, res) => {
 
     const email = rawEmail.toLowerCase().trim();
     const password = rawPassword.trim();
+    const isEmailValid = isValidEmail(email);
+
+    if (!isEmailValid) {
+      return res.status(BAD_REQUEST_STATUS).json({
+        error: true,
+        message: "Invalid email format",
+      });
+    }
 
     const user = await findUserByEmail({ email });
 
     if (!user) {
-      return res.json({
+      return res.status(UNAUTHORIZED_STATUS).json({
         success: false,
         message: "Invalid email or password",
       });
@@ -32,7 +41,7 @@ module.exports = async (req, res) => {
     if (!u) {
       return res.status(UNAUTHORIZED_STATUS).json({
         success: false,
-        message: "Invalid username or password",
+        message: "Invalid email or password",
       });
     }
 
