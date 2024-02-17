@@ -682,3 +682,95 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 <hr />
 
 </details>
+
+<details>
+  <summary>Archive interview - เก็บข้อมูล interview</summary>
+
+## Archive interview
+
+เป็น Route ที่เรียกเมื่อกดที่ปุ่ม "จัดเก็บ" ดังรูปด้านล่าง
+
+![UX/UI ปุ่มที่จัดเก็บ](https://github.com/jame3032002/backend-interview/assets/8217160/124feeb7-b3d4-4816-a284-f9e70fab3548)
+
+**URL** : `/api/interviews/:interviewId/archive`
+
+**Method** : `PATCH`
+
+**Auth required** : YES
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+  "success": true,
+  "interview": {
+    "_id": "65d061949166d015d47dee80",
+    "title": "นัดสัมภาษณ์งาน 1-3",
+    "description": "1-3-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorper a. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+    "status": "Done",
+    "createdBy": "65cfa17ad00dcd13b311fc47",
+    "isArchive": true,
+    "edited": [
+      {
+        "title": "นัดสัมภาษณ์งาน 1-1",
+        "description": "1-1-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorpera. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+        "status": "To Do",
+        "createdAt": "2023-01-01T03:10:00.696Z",
+        "_id": "65d067709e8c3fb440e39d2c"
+      },
+      {
+        "title": "นัดสัมภาษณ์งาน 1-2",
+        "description": "1-2-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorper a. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+        "status": "Done",
+        "createdAt": "2023-01-01T03:12:00.696Z",
+        "_id": "65d0677a9e8c3fb440e39d30"
+      },
+      {
+        "title": "นัดสัมภาษณ์งาน 1-3",
+        "description": "1-3-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorper a. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+        "status": "Done",
+        "createdAt": "2023-01-01T03:20:00.696Z",
+        "_id": "65d0677f9e8c3fb440e39d35"
+      },
+      {
+        "title": "นัดสัมภาษณ์งาน 1",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorpera. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+        "status": "To Do",
+        "createdAt": "2024-02-17T15:29:32.060Z",
+        "_id": "65d0d0dc7dbaf451370dbbd9"
+      }
+    ],
+    "createdAt": "2023-01-01T03:00:00.696Z",
+    "updatedAt": "2024-02-17T15:48:47.125Z",
+    "__v": 0,
+    "name": "โรบินฮู้ด"
+  }
+}
+```
+
+> ระบบจะอัพเดท field ชื่อ `isArchive` ให้มีค่าเป็น **true**
+>
+> ซึ่งในส่วน `GET interviews` ปกติแล้วจะดึงเฉพาะค่า `isArchive` ที่เป็น **false** ไปแสดง
+
+## Error Response
+
+### Invalid interviewId
+
+**Condition** : ถ้าหาก `interviewId` ที่ส่งมาไม่ถูกต้อง
+
+**Code** : `400 BAD REQUEST`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Invalid interviewId"
+}
+```
+
+</details>
