@@ -872,7 +872,7 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 <details>
   <summary>Add comment in interview - แสดงความคิดเห็นใน interview</summary>
 
-## Archive interview
+## Add comment in interview
 
 เป็น Route สำหรับเพิ่มความคิดเห็นใน interview ดัง UX/UI ด้านล่าง
 
@@ -954,3 +954,108 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 ```
 
 </details>
+
+### Comments
+
+<details>
+  <summary>Update comment - แก้ไขความคิดเห็นใน interview</summary>
+
+## Update comment
+
+เป็น Route สำหรับอัพเดทความคิดเห็นของ user นั้นๆ ที่แสดง
+
+**URL** : `/api/comments/:commentId`
+
+**Method** : `PATCH`
+
+**Auth required** : YES
+
+**Data constraints**
+
+```json
+{
+  "comment": "ข้อมูลเป็น String"
+}
+```
+
+**Data example**
+
+```json
+{
+  "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+}
+```
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content** :
+
+```json
+{
+  "success": true,
+  "comment": {
+    "_id": "65d062469166d015d47dee88",
+    "interviewId": "65d061949166d015d47dee80",
+    "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "createdBy": "65cfa186d00dcd13b311fc4a",
+    "createdAt": "2024-02-17T07:37:42.492Z",
+    "updatedAt": "2024-02-17T18:51:50.821Z",
+    "__v": 0
+  }
+}
+```
+
+## Error Response
+
+### Invalid parameters
+
+**Condition** : ถ้าหาก `comment` ไม่ได้ส่งมา
+
+**Code** : `400 BAD REQUEST`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Invalid parameters"
+}
+```
+
+<hr />
+
+### Invalid commentId
+
+**Condition** : ถ้าหาก `commentId` ไม่มีใน database
+
+**Code** : `400 BAD REQUEST`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Invalid commentId"
+}
+```
+
+<hr />
+
+### Forbidden
+
+**Condition** : ถ้าหากเราไม่ได้เป็นคนสร้างความคิดเห็นนั้น แล้วไปแก้ไขความคิดเห็น
+
+**Code** : `403 FORBIDDEN`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "You don't have permission"
+}
+```
+
+</detials>
