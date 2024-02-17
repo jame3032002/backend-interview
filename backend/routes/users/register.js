@@ -23,14 +23,14 @@ module.exports = async (req, res) => {
 
     if (!isEmailValid) {
       return res.status(BAD_REQUEST_STATUS).json({
-        success: false,
+        error: true,
         message: "Invalid email format",
       });
     }
 
     if (!isPasswordValid) {
       return res.status(BAD_REQUEST_STATUS).json({
-        success: false,
+        error: true,
         message:
           "Password must contain uppercase, lowercase, integer, special character and more than 8 characters",
       });
