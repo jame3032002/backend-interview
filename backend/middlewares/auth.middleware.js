@@ -12,7 +12,7 @@ const authorizedToAccess = (req, res, next) => {
   if (!token) {
     return res
       .status(UNAUTHORIZED_STATUS)
-      .json({ success: false, message: "Access token is required" });
+      .json({ error: true, message: "Access token is required" });
   }
 
   const [_, accessToken] = token.split("Bearer ");
@@ -20,7 +20,7 @@ const authorizedToAccess = (req, res, next) => {
     if (err) {
       return res
         .status(FORBIDDEN_STATUS)
-        .json({ success: false, message: "Invalid access token" });
+        .json({ error: true, message: "Invalid access token" });
     }
 
     req.context = {
