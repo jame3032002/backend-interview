@@ -538,3 +538,147 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 > **เพิ่มเติม** ในการ GET interview by id จะมีข้อมูล Edited ติดมาด้วย ซึ่งจะเอาไปใช้กับส่วนที่กดดูประวัติการแก้ไข
 
 </details>
+
+<details>
+  <summary>Update interview - แก้ไขข้อมูล interview (title, description, status)</summary>
+
+## Update interview
+
+เป็น Route ที่เรียกเมื่อต้องการแก้ไข interview
+
+**URL** : `/api/interviews/:interviewId`
+
+**Method** : `PATCH`
+
+**Auth required** : YES
+
+**Data constraints**
+
+```json
+{
+  "title": "ข้อมูลเป็น String",
+  "description": "ข้อมูลเป็น String",
+  "status": "ข้อมูลเป็น String เป็นได้แค่ 'To Do', 'In Progress', 'Done'"
+}
+```
+
+> ไม่จำเป็นต้องส่งมาทุก field ถ้าหากค่าไหนที่ไม่ได้ส่งมา ค่านั้นจะไม่ถูกอัพเดท
+
+**Data example**
+
+```json
+{
+  "title": "นัดสัมภาษณ์งาน 1-3",
+  "description": "1-3-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorper a. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+  "status": "Done"
+}
+```
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content example**
+
+```json
+{
+  "success": true,
+  "interview": {
+    "_id": "65d061949166d015d47dee80",
+    "title": "นัดสัมภาษณ์งาน 1-3",
+    "description": "1-3-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorper a. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+    "status": "Done",
+    "createdBy": "65cfa17ad00dcd13b311fc47",
+    "isArchive": false,
+    "edited": [
+      {
+        "title": "นัดสัมภาษณ์งาน 1-1",
+        "description": "1-1-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorpera. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+        "status": "To Do",
+        "createdAt": "2023-01-01T03:10:00.696Z",
+        "_id": "65d067709e8c3fb440e39d2c"
+      },
+      {
+        "title": "นัดสัมภาษณ์งาน 1-2",
+        "description": "1-2-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorper a. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+        "status": "Done",
+        "createdAt": "2023-01-01T03:12:00.696Z",
+        "_id": "65d0677a9e8c3fb440e39d30"
+      },
+      {
+        "title": "นัดสัมภาษณ์งาน 1-3",
+        "description": "1-3-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorper a. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+        "status": "Done",
+        "createdAt": "2023-01-01T03:20:00.696Z",
+        "_id": "65d0677f9e8c3fb440e39d35"
+      },
+      {
+        "title": "นัดสัมภาษณ์งาน 1",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorpera. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+        "status": "To Do",
+        "createdAt": "2024-02-17T15:29:32.060Z",
+        "_id": "65d0d0dc7dbaf451370dbbd9"
+      }
+    ],
+    "createdAt": "2023-01-01T03:00:00.696Z",
+    "updatedAt": "2024-02-17T15:29:32.063Z",
+    "__v": 0,
+    "name": "โรบินฮู้ด"
+  }
+}
+```
+
+## Error Response
+
+### Invalid parameters
+
+**Condition** : ถ้าไม่ได้ส่ง `title` หรือ `description` หรือ `status` ไป
+
+**Code** : `400 BAD REQUEST`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Invalid parameters"
+}
+```
+
+<hr />
+
+### Invalid interviewId
+
+**Condition** : ถ้าหาก `interviewId` ที่ส่งมาไม่ตรงกับใน Database
+
+**Code** : `400 BAD REQUEST`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Invalid interviewId"
+}
+```
+
+<hr />
+
+### Invalid status
+
+**Condition** : ถ้าหาก `status` ที่ส่งมาค่าไม่ใช่ `To Do` หรือ `In Progress` หรือ `Done`
+
+**Code** : `400 BAD REQUEST`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Invalid status"
+}
+```
+
+<hr />
+
+</details>
