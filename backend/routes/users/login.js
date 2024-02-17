@@ -3,10 +3,7 @@ const {
   UNAUTHORIZED_STATUS,
   INTERNAL_SERVER_ERROR,
 } = require("../../config/statusMessage");
-const {
-  generateAccessToken,
-  generateRefreshToken,
-} = require("../../helpers/auth");
+const { generateAccessToken } = require("../../helpers/auth");
 const { findUserByEmail } = require("../../services/user.service");
 
 module.exports = async (req, res) => {
@@ -40,7 +37,6 @@ module.exports = async (req, res) => {
     }
 
     const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken(user);
 
     delete user._doc.password;
 
@@ -48,7 +44,6 @@ module.exports = async (req, res) => {
       success: true,
       user,
       accessToken,
-      refreshToken,
     });
   } catch (error) {
     return res
