@@ -78,6 +78,7 @@ async function getInterviewById({ interviewId, allArchive = false }) {
         status: 1,
         createdBy: 1,
         name: "$user.name",
+        email: "$user.email",
         isArchive: 1,
         edited: 1,
         createdAt: 1,
