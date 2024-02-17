@@ -1058,7 +1058,7 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 }
 ```
 
-</detials>
+</details>
 
 <details>
   <summary>Delete comment - ลบความคิดเห็นใน interview</summary>
@@ -1119,4 +1119,4 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 }
 ```
 
-</detials>
+</details>
