@@ -11,6 +11,25 @@ async function getCommentsByInterviewId({ interviewId }) {
         as: "user",
       },
     },
+    {
+      $unwind: "$user",
+    },
+    {
+      $project: {
+        _id: 1,
+        interviewId: 1,
+        comment: 1,
+        createdAt: 1,
+        createdBy: 1,
+        name: "$user.name",
+        email: "$user.email",
+      },
+    },
+    {
+      $sort: {
+        createdAt: -1,
+      },
+    },
   ]);
 
   return comments;
