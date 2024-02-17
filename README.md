@@ -868,3 +868,89 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 ```
 
 </details>
+
+<details>
+  <summary>Add comment in interview - แสดงความคิดเห็นใน interview</summary>
+
+## Archive interview
+
+เป็น Route สำหรับเพิ่มความคิดเห็นใน interview ดัง UX/UI ด้านล่าง
+
+![UX/UI ส่วนที่แสดงความคิดเห็น](https://github.com/jame3032002/backend-interview/assets/8217160/da21b4b5-f1b1-4af2-8710-5f36cf31f3cd)
+
+**URL** : `/api/interviews/:interviewId/comments`
+
+**Method** : `POST`
+
+**Auth required** : YES
+
+**Data constraints**
+
+```json
+{
+  "comment": "ข้อมูลเป็น String"
+}
+```
+
+**Data example**
+
+```json
+{
+  "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+}
+```
+
+## Success Response
+
+**Code** : `201 Created`
+
+**Content** :
+
+```json
+{
+  "success": true,
+  "comment": {
+    "interviewId": "65d061949166d015d47dee80",
+    "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "createdBy": "65d07b072bb274bc40edc356",
+    "_id": "65d0f6e467b048161e74dd6d",
+    "createdAt": "2024-02-17T18:11:48.217Z",
+    "updatedAt": "2024-02-17T18:11:48.217Z",
+    "__v": 0
+  }
+}
+```
+
+## Error Response
+
+### Invalid parameters
+
+**Condition** : ถ้าหาก `comment` ไม่ได้ส่งมา
+
+**Code** : `400 BAD REQUEST`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Invalid parameters"
+}
+```
+
+### Invalid interviewId
+
+**Condition** : ถ้าหาก `interviewId` ไม่ถูกต้อง
+
+**Code** : `400 BAD REQUEST`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Invalid interviewId"
+}
+```
+
+</details>
