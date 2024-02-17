@@ -57,7 +57,7 @@ Route ที่เข้าได้โดยไม่ต้อง Authenticatio
 
 **Code** : `201 Created`
 
-**Content example**
+**Content** :
 
 ```json
 {
@@ -178,7 +178,7 @@ Route ที่เข้าได้โดยไม่ต้อง Authenticatio
 
 **Code** : `200 OK`
 
-**Content example**
+**Content** :
 
 ```json
 {
@@ -296,6 +296,100 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 ### Interviews
 
 <details>
+  <summary>Add Interview - เพิ่มข้อมูล interview</summary>
+
+## Add Interview
+
+เป็น Route เพิ่มข้อมูล interview
+
+**URL** : `/api/interviews`
+
+**Method** : `POST`
+
+**Auth required** : YES
+
+**Data constraints**
+
+```json
+{
+  "title": "ข้อมูลเป็น String",
+  "description": "ข้อมูลเป็น String",
+  "status": "ข้อมูลเป็น String เป็นได้แค่ 'To Do', 'In Progress', 'Done'"
+}
+```
+
+> `status` ถ้าหาก status ไม่ได้ส่งไป ค่าเริ่มต้นจะเป็น `To Do`
+
+**Data example**
+
+```json
+{
+  "title": "นัดสัมภาษณ์งาน 1",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorpera. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+  "status": "To Do"
+}
+```
+
+# Success Response
+
+**Code** : `201 Created`
+
+**Content** :
+
+```json
+{
+  "success": true,
+  "interview": {
+    "title": "นัดสัมภาษณ์งาน 1",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas sed sed. Pulvinar neque laoreet suspendisse interdum consectetur libero. Ut lectus arcu bibendum at varius vel. Feugiat in ante metus dictum at tempor commodo ullamcorpera. Lacinia at quis risus sed. Adipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Nulla aliquet enim tortor at auctor urna nunc.",
+    "status": "To Do",
+    "createdBy": "65d07b072bb274bc40edc356",
+    "isArchive": false,
+    "_id": "65d0ea2a8991001385d7e63e",
+    "edited": [],
+    "createdAt": "2024-02-17T17:17:30.832Z",
+    "updatedAt": "2024-02-17T17:17:30.832Z",
+    "__v": 0,
+    "name": "วันเดอร์วูแมน"
+  }
+}
+```
+
+## Error Response
+
+### Invalid title or description
+
+**Condition** : ถ้าไม่ได้ส่ง `title` หรือ `description` ไป
+
+**Code** : `400 BAD REQUEST`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Invalid title or description"
+}
+```
+
+### Invalid status
+
+**Condition** : ถ้าหากส่ง `status` เป็นค่าที่ไม่ใช่ `To Do`, `In Progress`, `Done`
+
+**Code** : `400 BAD REQUEST`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Invalid status"
+}
+```
+
+</details>
+
+<details>
   <summary>Get Interviews - ดึงข้อมูล Interviews</summary>
 
 ## Get Interviews
@@ -319,7 +413,7 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 
 **Code** : `200 OK`
 
-**Content example**
+**Content** :
 
 ```json
 {
@@ -416,7 +510,7 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 
 **Code** : `200 OK`
 
-**Content example**
+**Content** :
 
 ```json
 {
@@ -492,7 +586,7 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 
 **Code** : `200 OK`
 
-**Content example**
+**Content** :
 
 ```json
 {
@@ -578,7 +672,7 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 
 **Code** : `200 OK`
 
-**Content example**
+**Content** :
 
 ```json
 {
@@ -702,7 +796,7 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 
 **Code** : `200 OK`
 
-**Content example**
+**Content** :
 
 ```json
 {
