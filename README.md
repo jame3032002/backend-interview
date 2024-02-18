@@ -111,6 +111,10 @@ docker run -p 2000:2000 --network=interview-network -e MONGO_SERVER=mongodb://da
 
 </details>
 
+## Base endpoint
+
+The base endpoint http://localhost:2000 สามารถใช้เข้าถึง API endpoints ต่างๆ ตาม documents ด้านล่าง
+
 ## Open Endpoints
 
 Route ที่เข้าได้โดยไม่ต้อง Authentication
@@ -1158,6 +1162,28 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 > **เพิ่มเติม** ถ้าหาก Error อื่น ๆ นอกจากที่กล่าวข้างต้นจะแสดงดัง Error Response ด้านล่างครับ
 
 ## Error Response
+
+### Too many requests
+
+**Condition** : ถ้าหากส่ง Request มากเกิน rate limit ที่กำหนด
+
+> **Rate limit** สามารถกำหนดได้จาก env โดยจะกำหนด 2 ค่าคือ
+>
+> - **RATE_LIMIT_TIME_RESET** -> คือเวลาที่ต้องการให้ Reset หน่วยเป็น นาที (หากไม่กำหนดค่าเริ่มต้นจะเป็น 1)
+> - **RATE_LIMIT_REQUEST_PER_TIME_RESET** -> คือ จำนวน request ในหนึ่งหน่วยเวลา (หากไม่กำหนดค่าเริ่มต้นจะเป็น 20)
+>
+> ซึ่งหากไม่ได้กำหนด จะ request ได้ 20 ครั้งใน 1 นาที
+
+**Code** : `429 TOO MANY REQUESTS`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Too many requests from this IP, please try again later."
+}
+```
 
 ### Internal server error
 
