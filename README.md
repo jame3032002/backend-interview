@@ -1103,3 +1103,24 @@ curl --location --request GET 'http://localhost:2000/api/interviews?page=1&limit
 ```
 
 </details>
+
+<hr />
+
+> **เพิ่มเติม** ถ้าหาก Error อื่น ๆ นอกจากที่กล่าวข้างต้นจะแสดงดัง Error Response ด้านล่างครับ
+
+## Error Response
+
+### Internal server error
+
+**Condition** : Error อื่น ๆ ที่นอกเหนือการควบคุม
+
+**Code** : `500 INTERNAL SERVER ERROR`
+
+**Content** :
+
+```json
+{
+  "error": true,
+  "message": "Internal server error"
+}
+```
