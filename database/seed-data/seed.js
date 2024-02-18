@@ -156,8 +156,8 @@ db.interviews.insertMany([
     createdBy: ObjectId("65cfa186d00dcd13b311fc4a"),
     isArchive: false,
     edited: [],
-    createdAt: ISODate("2024-07-17T14:48:44.799+07:00"),
-    updatedAt: ISODate("2024-07-17T14:48:44.799+07:00"),
+    createdAt: ISODate("2023-07-17T14:48:44.799+07:00"),
+    updatedAt: ISODate("2023-07-17T14:48:44.799+07:00"),
     __v: 0,
   },
 ]);
@@ -169,8 +169,8 @@ db.comments.insertMany([
     comment:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     createdBy: ObjectId("65cfa186d00dcd13b311fc4a"),
-    createdAt: ISODate("2024-02-17T14:37:42.492+07:00"),
-    updatedAt: ISODate("2024-02-17T14:37:42.492+07:00"),
+    createdAt: ISODate("2023-01-01T15:00:00.492+07:00"),
+    updatedAt: ISODate("2023-01-01T15:00:00.492+07:00"),
     __v: 0,
   },
   {
@@ -179,8 +179,8 @@ db.comments.insertMany([
     comment:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     createdBy: ObjectId("65cfa19ad00dcd13b311fc4d"),
-    createdAt: ISODate("2024-02-17T14:39:13.363+07:00"),
-    updatedAt: ISODate("2024-02-17T14:39:13.363+07:00"),
+    createdAt: ISODate("2023-01-01T18:00:00.363+07:00"),
+    updatedAt: ISODate("2023-01-01T18:00:00.363+07:00"),
     __v: 0,
   },
   {
@@ -189,8 +189,8 @@ db.comments.insertMany([
     comment:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     createdBy: ObjectId("65cfa186d00dcd13b311fc4a"),
-    createdAt: ISODate("2024-02-17T14:39:21.161+07:00"),
-    updatedAt: ISODate("2024-02-17T14:39:21.161+07:00"),
+    createdAt: ISODate("2023-01-02T18:00:00.161+07:00"),
+    updatedAt: ISODate("2023-01-02T18:00:00.161+07:00"),
     __v: 0,
   },
 ]);
