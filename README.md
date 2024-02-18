@@ -214,23 +214,6 @@ Route ที่เข้าได้โดยไม่ต้อง Authenticatio
 
 <hr />
 
-### Invalid parameters
-
-**Condition** : ถ้าไม่ได้ส่ง `email` หรือ `password` ไป
-
-**Code** : `400 BAD REQUEST`
-
-**Content** :
-
-```json
-{
-  "error": true,
-  "message": "Invalid parameters"
-}
-```
-
-<hr />
-
 ### Invalid email or password
 
 **Condition** : ถ้าหาก `email` หรือ `password` ไม่ถูกต้อง
