@@ -14,9 +14,12 @@ connectionDatabase();
 
 // Rate Limit Config
 const limiter = rateLimit({
-  windowMs: RATE_LIMIT_REQUEST_PER_TIME_RESET * 1000,
+  windowMs: RATE_LIMIT_REQUEST_PER_TIME_RESET * 60 * 1000,
   max: RATE_LIMIT_REQUEST_PER_TIME_RESET,
-  message: "Too many requests from this IP, please try again later.",
+  message: {
+    error: true,
+    message: "Too many requests from this IP, please try again later.",
+  },
 });
 
 // middlewares
