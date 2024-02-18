@@ -9,7 +9,7 @@ const { addInterview } = require("../../services/interview.service");
 module.exports = async (req, res) => {
   try {
     const {
-      user: { userId, name },
+      user: { userId, name, email },
     } = req.context;
     const { title, description, status = STATUS[0] } = req.body;
 
@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
 
     return res
       .status(CREATE_STATUS)
-      .json({ success: true, interview: { ...interview._doc, name } });
+      .json({ success: true, interview: { ...interview._doc, name, email } });
   } catch (error) {
     return res
       .status(INTERNAL_SERVER_ERROR)

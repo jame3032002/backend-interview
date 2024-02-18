@@ -54,7 +54,11 @@ module.exports = async (req, res) => {
 
     return res.json({
       success: true,
-      interview: { ...interview._doc, name: interviewData.name },
+      interview: {
+        ...interview._doc,
+        name: interviewData.name,
+        email: interviewData.email,
+      },
     });
   } catch (error) {
     return res

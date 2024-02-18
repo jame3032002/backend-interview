@@ -138,6 +138,7 @@ async function getInterviewsPaginationBySkipLimit({ page = 1, limit }) {
         status: 1,
         createdBy: 1,
         name: "$user.name",
+        email: "$user.email",
         isArchive: 1,
         createdAt: 1,
         updatedAt: 1,
