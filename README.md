@@ -10,11 +10,106 @@ Clone Project ลงมาในเครื่อง
 git clone git@github.com:jame3032002/backend-interview.git
 ```
 
+cd ไปที่ Project
+
+```sh
+cd ./backend-interview
+```
+
 ใช้คำสั่ง
 
 ```sh
 docker-compose up
 ```
+
+## Manual Start
+
+Clone Project ลงมาในเครื่อง
+
+```sh
+git clone git@github.com:jame3032002/backend-interview.git
+```
+
+cd ไปที่ Project
+
+```sh
+cd ./backend-interview
+```
+
+<details>
+  <summary>สร้าง docker network</summary>
+
+## Create docker network
+
+ขั้นแรกให้สร้าง Network ชื่อ `interview-network`
+
+```sh
+docker network create interview-network
+```
+
+</details>
+
+<details>
+  <summary>การ Run database แบบ Manual (ใช้ Docker)</summary>
+
+## Database
+
+### Build docker image
+
+```sh
+docker build -t [ชื่อ docker image ที่ต้องการสร้าง] -f ./database/Dockerfile ./database
+```
+
+เช่น
+
+```sh
+docker build -t interview-db -f ./database/Dockerfile ./database
+```
+
+### Run docker image
+
+```sh
+docker run -p 27017:27017 --network=[ชื่อ network ที่เราสร้างก่อนหน้า] --name=[ชื่อ container] -e MONGO_INITDB_DATABASE=[ชื่อ database ที่ต้องการ] [ชื่อ docker image ที่สร้างในขั้นตอนก่อนหน้า]
+```
+
+เช่น
+
+```sh
+docker run -p 27017:27017 --network=interview-network --name=database -e MONGO_INITDB_DATABASE=robinhood interview-db
+```
+
+> หากต้องการให้ Run เป็น background ให้ใส่ tag `-d` เพิ่มเข้าไป เช่น
+
+```sh
+docker run -p 27017:27017 --network=interview-network --name=database -d -e MONGO_INITDB_DATABASE=robinhood interview-db
+```
+
+</details>
+
+<details>
+  <summary>การ Run backend แบบ Manual (ใช้ Docker)</summary>
+
+## Backend
+
+### Build Docker Image
+
+```sh
+docker build -t interview-backend -f ./backend/Dockerfile ./backend
+```
+
+### Run Docker Image
+
+```sh
+docker run -p 2000:2000 --network=interview-network -e MONGO_SERVER=mongodb://[ชื่อ container ของ database]:27017/robinhood -e ACCESS_TOKEN_SECRET_KEY=[SECRET_KEY ที่ต้องการ] -e TZ=Asia/Bangkok interview-backend
+```
+
+เช่น
+
+```sh
+docker run -p 2000:2000 --network=interview-network -e MONGO_SERVER=mongodb://database:27017/robinhood -e ACCESS_TOKEN_SECRET_KEY=ACCESS_TOKEN_SECRET_KEY -e TZ=Asia/Bangkok interview-backend
+```
+
+</details>
 
 ## Open Endpoints
 
